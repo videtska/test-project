@@ -126,6 +126,6 @@ bazel-genfiles
 bazel-out
 bazel-selenium
 bazel-testlogs
-
+data
 /.vscode/
 /.scannerwork/

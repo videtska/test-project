@@ -1,9 +1,12 @@
 package parentTests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import libs.Utils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
+import org.junit.rules.TestName;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.AparatPage;
@@ -12,15 +15,25 @@ import pages.LoginPage;
 
 
 import java.util.concurrent.TimeUnit;
+import org.apache.log4j.*;
 
 public class AbstractParentTest {
     WebDriver webDriver;
     protected LoginPage loginPage;
     protected HomePage homePage;
     protected AparatPage aparatPage;
+    protected Utils utils;
+    private String pathToScreenshot;
+    Logger log = Logger.getLogger(getClass());
+
+    @Rule
+    public TestName testName = new TestName();
 
     @Before
     public void setUp() throws Exception {
+
+        pathToScreenshot = "C:\\QAlight projects\\test-project\\target\\screenshots\\" + this.getClass().getPackage().getName() + "\\" +
+                this.getClass().getSimpleName() + this.testName.getMethodName() + ".jpg";
 
         webDriver = driverInit();
         webDriver.manage().window().maximize();
@@ -28,6 +41,8 @@ public class AbstractParentTest {
         loginPage = new LoginPage(webDriver);
         homePage = new HomePage(webDriver);
         aparatPage = new AparatPage(webDriver);
+        utils = new Utils();
+
 
     }
 
@@ -42,6 +57,10 @@ public class AbstractParentTest {
     }
 
     protected void checkExpectedResult(String message, boolean actualResult) {
+
+        //if(!actualResult == true) {
+            utils.screenShot(pathToScreenshot, webDriver);
+        //}
         Assert.assertEquals(message,true, actualResult);
     }
 
