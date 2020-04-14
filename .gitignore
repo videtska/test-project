@@ -9,7 +9,6 @@ mockpiframe.log.lck
 junitvmwatcher*.properties
 test-output/
 .*.swp
-src/main/resources
 .idea
 .idea/*
 .idea/libraries
