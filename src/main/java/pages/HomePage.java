@@ -6,8 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import parentPage.ParentPage;
 
-import java.nio.channels.WritableByteChannel;
-
 public class HomePage extends ParentPage {
     @FindBy(xpath = ".//*[@class='pull-left image']")
     private WebElement avatar;
