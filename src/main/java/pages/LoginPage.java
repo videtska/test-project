@@ -47,17 +47,17 @@ public class LoginPage extends ParentPage {
         }
     }
 
-    public void inputLogin(String text) {
+    private void inputLogin(String text) {
         logger.info("Setting username");
         actionWithWebElements.enterTextToTheFields(inputLoginName, text);
     }
 
-    public void inputPassword(String text) {
+    private void inputPassword(String text) {
         logger.info("Setting password");
         actionWithWebElements.enterTextToTheFields(inputPasswordName, text);
     }
 
-    public void clickSubmitBtn() {
+    private void clickSubmitBtn() {
         logger.info("Submitting credentials");
         actionWithWebElements.clickBtn(inputButtonXpath);
     }

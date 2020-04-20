@@ -16,10 +16,7 @@ public class LoginTestWithPageObjectWithExcel extends AbstractParentTest {
         Map<String, String> dataForValidLogin = ExcelDriver.getData(ConfigClass.getCfgValue("DATA_FILE"), "validLogOn");
 
         loginPage.openPage();
-        loginPage.inputLogin(dataForValidLogin.get("login"));
-        loginPage.inputPassword(dataForValidLogin.get("pass"));
-        loginPage.clickSubmitBtn();
-
+        loginPage.loginToPage(dataForValidLogin.get("login"), dataForValidLogin.get("pass"));
         checkExpectedResult("Avatar is not present", homePage.isAvatarDisplayed());
     }
 

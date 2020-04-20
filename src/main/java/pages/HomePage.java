@@ -10,7 +10,7 @@ public class HomePage extends ParentPage {
     @FindBy(xpath = ".//*[@class='pull-left image']")
     private WebElement avatar;
 
-    @FindBy(xpath = ".//li[@id='dictionary']//ul[@class='treeview-menu menu-open']//li[@id='prov_cus']")
+    @FindBy(xpath = ".//li[@id='dictionary']")
     private WebElement submenuProviders;
 
     @FindBy(xpath = "//*[@id='dashboard']")

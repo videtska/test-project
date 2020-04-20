@@ -9,7 +9,9 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.AparatPage;
+import pages.EmployeesPage;
 import pages.HomePage;
 import pages.LoginPage;
 
@@ -22,6 +24,7 @@ public class AbstractParentTest {
     protected LoginPage loginPage;
     protected HomePage homePage;
     protected AparatPage aparatPage;
+    protected EmployeesPage employeesPage;
     protected Utils utils;
     private String pathToScreenshot;
     Logger log = Logger.getLogger(getClass());
@@ -32,7 +35,7 @@ public class AbstractParentTest {
     @Before
     public void setUp() throws Exception {
 
-        pathToScreenshot = "C:\\QAlight projects\\test-project\\target\\screenshots\\" + this.getClass().getPackage().getName() + "\\" +
+        pathToScreenshot = "D:\\java\\test-project\\target\\screenshots\\" + this.getClass().getPackage().getName() + "\\" +
                 this.getClass().getSimpleName() + this.testName.getMethodName() + ".jpg";
 
         webDriver = driverInit();
@@ -41,6 +44,7 @@ public class AbstractParentTest {
         loginPage = new LoginPage(webDriver);
         homePage = new HomePage(webDriver);
         aparatPage = new AparatPage(webDriver);
+        employeesPage = new EmployeesPage(webDriver);
         utils = new Utils();
 
 
@@ -59,9 +63,10 @@ public class AbstractParentTest {
     protected void checkExpectedResult(String message, boolean actualResult) {
 
         //if(!actualResult == true) {
-            utils.screenShot(pathToScreenshot, webDriver);
+
         //}
         Assert.assertEquals(message,true, actualResult);
+        utils.screenShot(pathToScreenshot, webDriver);
     }
 
 }

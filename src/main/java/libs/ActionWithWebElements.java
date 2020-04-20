@@ -1,5 +1,6 @@
 package libs;
 
+import jdk.jshell.spi.ExecutionControl;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,6 +9,8 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
 
 
 public class ActionWithWebElements {
@@ -59,6 +62,7 @@ public class ActionWithWebElements {
 
     public void clickBtn(WebElement element) {
         try {
+            webDriverWait_10.until(ExpectedConditions.visibilityOf(element));
             element.click();
             logger.info("Click completed");
         } catch (Exception e) {
@@ -100,6 +104,7 @@ public class ActionWithWebElements {
 
     public boolean isElementEnabled(WebElement element) {
         try {
+            webDriverWait_10.until(ExpectedConditions.visibilityOf(element));
             return element.isEnabled();
         } catch (Exception e) {
             e.printStackTrace();
@@ -124,6 +129,7 @@ public class ActionWithWebElements {
 
     public void setCheckbox(WebElement element, boolean state) {
         try {
+            webDriverWait_10.until(ExpectedConditions.visibilityOf(element));
             if (element.isSelected() != state) {
                 element.click();
                 logger.info("Checkbox state changed");
@@ -147,7 +153,8 @@ public class ActionWithWebElements {
     }
 */
 
-    private void selectElementByDD(WebElement element, String itemName) {
+    public void selectElementByDD(WebElement element, String itemName) {
+        webDriverWait_10.until(ExpectedConditions.visibilityOf(element));
         Select dropDownValue = new Select(element);
         try {
             dropDownValue.selectByVisibleText(itemName);
@@ -157,4 +164,44 @@ public class ActionWithWebElements {
             logger.error("");
         }
     }
+
+    public String getTextFrom(WebElement element){
+        webDriverWait_10.until(ExpectedConditions.visibilityOf(element));
+        return element.getText();
+    }
+
+    public boolean isRowPresent(List<WebElement> rows, String ...columns) {
+        String text = "";
+
+        for (int i = 0; i < columns.length; i++) {
+            text += " " + columns[i];
+        }
+
+        for (int j = 0; j < rows.size(); j++) {
+                String row = getTextFrom(rows.get(j));
+
+                if (row.equals(text.trim())) {
+                    return true;
+                }
+            }
+        return false;
+    }
+
+    public WebElement locateRow(List<WebElement> rows, String ...columns) {
+        String text = "";
+        for (int i = 0; i < columns.length; i++) {
+            text += " " + columns[i];
+        }
+
+        for (int j = 0; j < rows.size(); j++) {
+            String row = getTextFrom(rows.get(j));
+
+            if (row.equals(text.trim())) {
+                return rows.get(j);
+            }
+        }
+        return null;
+    }
+
+
 }

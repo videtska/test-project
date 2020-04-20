@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -42,9 +43,11 @@ public class AparatPage extends ParentPage {
     @FindBy(xpath = "//tbody/tr")
     private List<WebElement> tableRows;
 
+    @FindBy(xpath = "//tr/td[1]")
+    private WebElement tableNum;
 
-
-
+    @FindBy(xpath = "//tr/td[2]")
+    private WebElement tableComment;
 
 
 
@@ -52,5 +55,39 @@ public class AparatPage extends ParentPage {
         super(webDriver);
     }
 
+    private void clickAdd() {
+        logger.info("Clicking add button");
+        actionWithWebElements.clickBtn(btnAdd);
+    }
 
+    private void inputAparatNumber(String text) {
+        actionWithWebElements.enterTextToTheFields(textFieldAparatNumber, text);
+    }
+
+    private void inputAparatComment(String text) {
+        actionWithWebElements.enterTextToTheFields(getTextFieldAparatComment, text);
+    }
+
+    private void clickCreate() {
+        actionWithWebElements.clickBtn(submitBtn);
+    }
+
+    public void createNewAparat(String number, String comment) {
+        logger.info("Creating new aparat");
+        clickAdd();
+        inputAparatNumber(number);
+        inputAparatComment(comment);
+        clickCreate();
+        logger.info("New aparat created");
+    }
+
+    public boolean isApparatRowAdded(String number, String comment) {
+        return actionWithWebElements.isRowPresent(tableRows, number, comment);
+    }
+
+    public void deleteNewAparat(String number, String comment) {
+        logger.info("Deleting new aparat");
+        actionWithWebElements.clickBtn(actionWithWebElements.locateRow(tableRows, number, comment));
+        actionWithWebElements.clickBtn(deleteBtn);
+    }
 }

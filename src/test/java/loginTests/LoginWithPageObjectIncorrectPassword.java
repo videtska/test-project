@@ -8,9 +8,7 @@ public class LoginWithPageObjectIncorrectPassword extends AbstractParentTest {
     @Test
     public void invalidPasswordLogin() {
         loginPage.openPage();
-        loginPage.inputLogin("Student");
-        loginPage.inputPassword("1234");
-        loginPage.clickSubmitBtn();
+        loginPage.loginToPage("Student", "2342");
         checkExpectedResult("Login success", loginPage.isAuthTitlePresent());
     }
 }
