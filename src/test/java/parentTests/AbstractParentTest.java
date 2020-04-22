@@ -10,10 +10,7 @@ import org.junit.rules.TestName;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pages.AparatPage;
-import pages.EmployeesPage;
-import pages.HomePage;
-import pages.LoginPage;
+import pages.*;
 
 
 import java.util.concurrent.TimeUnit;
@@ -25,6 +22,9 @@ public class AbstractParentTest {
     protected HomePage homePage;
     protected AparatPage aparatPage;
     protected EmployeesPage employeesPage;
+    protected ProvidersPage providersPage;
+    protected DealsTypesPage dealsTypesPage;
+    protected DealsPage dealsPage;
     protected Utils utils;
     private String pathToScreenshot;
     Logger log = Logger.getLogger(getClass());
@@ -45,6 +45,9 @@ public class AbstractParentTest {
         homePage = new HomePage(webDriver);
         aparatPage = new AparatPage(webDriver);
         employeesPage = new EmployeesPage(webDriver);
+        providersPage = new ProvidersPage(webDriver);
+        dealsTypesPage = new DealsTypesPage(webDriver);
+        dealsPage = new DealsPage(webDriver);
         utils = new Utils();
 
 
