@@ -31,7 +31,6 @@ public class DealWithDealTypeAndProvider extends AbstractParentTest {
 
     @Test
     public void AddDealWithNewDealTypeAndProvider() {
-        System.out.println(minute);
         loginPage.openPage();
         loginPage.loginToPage("Student", "909090");
         homePage.clickOnSubmenuProviders();

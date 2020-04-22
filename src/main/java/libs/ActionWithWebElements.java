@@ -19,24 +19,12 @@ public class ActionWithWebElements {
     WebDriverWait webDriverWait_10, webDriverWait_15;
 
 
-
     public ActionWithWebElements(WebDriver webDriver) {
 
         this.webDriver = webDriver;
         webDriverWait_10 = new WebDriverWait(webDriver, 10);
         webDriverWait_15 = new WebDriverWait(webDriver, 15);
     }
-
-    /*public void enterTextToTheFields(By element, String text) {
-        try {
-            webDriver.findElement(element).clear();
-            webDriver.findElement(element).sendKeys(text);
-            logger.info("");
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error("");
-        }
-    }*/
 
     public void enterTextToTheFields(WebElement element, String text) {
         try {
@@ -49,17 +37,6 @@ public class ActionWithWebElements {
         }
     }
 
-    /*public void clickBtn(By element) {
-        try {
-            webDriver.findElement(element).click();
-            logger.info("");
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error("");
-        }
-    }
-*/
-
     public void clickBtn(WebElement element) {
         try {
             webDriverWait_10.until(ExpectedConditions.visibilityOf(element));
@@ -71,16 +48,6 @@ public class ActionWithWebElements {
         }
     }
 
-    /*public boolean isElementDisplayed(By element) {
-        try {
-            return webDriver.findElement(element).isDisplayed();
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error("");
-            return false;
-        }
-    }
-*/
     public boolean isElementDisplayed(WebElement element) {
         try {
             webDriverWait_15.until(ExpectedConditions.visibilityOf(element));
@@ -91,16 +58,6 @@ public class ActionWithWebElements {
             return false;
         }
     }
-
-    /*public boolean isElementEnabled(By element) {
-        try {
-            return webDriver.findElement(element).isEnabled();
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error("");
-            return false;
-        }
-    }*/
 
     public boolean isElementEnabled(WebElement element) {
         try {
@@ -113,28 +70,15 @@ public class ActionWithWebElements {
         }
     }
 
-    /*public void setCheckbox(By element, boolean state) {
-        try {
-            if (webDriver.findElement(element).isSelected() != state) {
-                webDriver.findElement(element).click();
-                logger.info("");
-            }
-            logger.info("");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error("");
-        }
-    }*/
-
     public void setCheckbox(WebElement element, boolean state) {
         try {
             webDriverWait_10.until(ExpectedConditions.visibilityOf(element));
             if (element.isSelected() != state) {
                 element.click();
-                logger.info("Checkbox state changed");
+                logger.info("Checkbox state changed " + String.valueOf(state));
+            } else {
+                logger.info("Checkbox state not changed");
             }
-            logger.info("Checkbox state not changed");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -142,53 +86,26 @@ public class ActionWithWebElements {
         }
     }
 
-    /*private void selectElementByDD(By element, String itemName) {
-        Select dropDownValue = new Select(webDriver.findElement(element));
-        try {
-            dropDownValue.selectByVisibleText(itemName);
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error("");
-        }
-    }
-*/
-
     public void selectElementByDD(WebElement element, String itemName) {
         webDriverWait_10.until(ExpectedConditions.visibilityOf(element));
         Select dropDownValue = new Select(element);
         try {
             dropDownValue.selectByVisibleText(itemName);
-            logger.info("");
+            logger.info("Dropdown values is selected");
         } catch (Exception e) {
             e.printStackTrace();
-            logger.error("");
+            logger.error("Unable to set value in the dropdown");
         }
     }
 
-    public String getTextFrom(WebElement element){
+    public String getTextFrom(WebElement element) {
         webDriverWait_10.until(ExpectedConditions.visibilityOf(element));
         return element.getText();
     }
 
-    public boolean isRowPresent(List<WebElement> rows, String ...columns) {
+    public boolean isRowPresent(List<WebElement> rows, String... columns) {
         String text = "";
 
-        for (int i = 0; i < columns.length; i++) {
-            text += " " + columns[i];
-        }
-
-        for (int j = 0; j < rows.size(); j++) {
-                String row = getTextFrom(rows.get(j));
-
-                if (row.equals(text.trim())) {
-                    return true;
-                }
-            }
-        return false;
-    }
-
-    public WebElement locateRow(List<WebElement> rows, String ...columns) {
-        String text = "";
         for (int i = 0; i < columns.length; i++) {
             text += " " + columns[i];
         }
@@ -197,11 +114,31 @@ public class ActionWithWebElements {
             String row = getTextFrom(rows.get(j));
 
             if (row.equals(text.trim())) {
-                return rows.get(j);
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
+    public WebElement locateRow(List<WebElement> rows, String... columns) {
+        try {
+            logger.info("Looking for the added row");
+            String text = "";
+            for (int i = 0; i < columns.length; i++) {
+                text += " " + columns[i];
+            }
 
+            for (int j = 0; j < rows.size(); j++) {
+                String row = getTextFrom(rows.get(j));
+
+                if (row.equals(text.trim())) {
+                    return rows.get(j);
+                }
+            }
+            return null;
+        } catch (Exception e) {
+            logger.info("Failed");
+            return null;
+        }
+    }
 }

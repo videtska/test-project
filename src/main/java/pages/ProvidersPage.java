@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import parentPage.ParentPage;
 
+import java.util.List;
+
 public class ProvidersPage extends ParentPage {
 
     @FindBy(xpath = "//a[@data-original-title='Add']")
@@ -27,6 +29,9 @@ public class ProvidersPage extends ParentPage {
 
     @FindBy(xpath = "//button[@name='add']")
     private WebElement btnCreate;
+
+    @FindBy(xpath = "//table//tr")
+    private List<WebElement> providerRow;
 
     public ProvidersPage(WebDriver webDriver) {
         super(webDriver);
@@ -70,8 +75,7 @@ public class ProvidersPage extends ParentPage {
         clickSubmit();
     }
 
-
-
-
-
+    public Boolean isProviderAdded(String name, String address, String phone, String checkbox) {
+        return actionWithWebElements.isRowPresent(providerRow, name, address, phone, checkbox);
+    }
 }
